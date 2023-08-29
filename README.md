@@ -1,1 +1,3 @@
 # ConsoleFileManager
+
+opis użytkowania
