@@ -1,5 +1,6 @@
 using ConsoleFileManager.Models;
 using ConsoleFileManager.UI;
+using Microsoft.VisualBasic;
 
 namespace ConsoleFileManager.Logic;
 
@@ -21,6 +22,8 @@ public class FileManager
 
         foreach (var directory in directoryInfo.GetDirectories())
         {
+            if (directory.Name.Contains("System Volume Information") || directory.Name.Contains("$RECYCLE.BIN"))
+                continue;
             var dirObj = new DirectoryFIleModel(directory.Name, directory.FullName, 0, directory.LastWriteTime,
                 FileType.Directory);
             items.Add(dirObj);
@@ -34,5 +37,30 @@ public class FileManager
         }
 
         return items.ToArray();
-    } 
+    }
+
+    public static void DeleteFile(DirectoryFIleModel directoryFIleModel)
+    {
+        if (directoryFIleModel.fileType == FileType.File)
+        {
+            File.SetAttributes(directoryFIleModel.path, FileAttributes.Normal);
+            File.Delete(directoryFIleModel.path);
+        }
+    }
+
+    public static void RenameFile(DirectoryFIleModel directoryFIleModel, string desinationPath)
+    {
+        if (directoryFIleModel.fileType == FileType.File)
+        {
+            File.Move(directoryFIleModel.path, desinationPath);
+        }
+    }
+
+    public static void CreateFile(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            File.Create(filePath).Close();
+        }
+    }
 }

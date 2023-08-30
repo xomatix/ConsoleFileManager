@@ -3,10 +3,10 @@ namespace ConsoleFileManager.Models;
 public class DirectoryFIleModel
 {
     public string fileName;
-    public string path;
-    public int size;
-    public DateTime lastEditDate;
-    public FileType fileType;
+    public string? path;
+    public int? size;
+    public DateTime? lastEditDate;
+    public FileType? fileType;
 
     public DirectoryFIleModel(string fileName, string path, int size, DateTime lastEditDate, FileType fileType)
     {
@@ -15,6 +15,11 @@ public class DirectoryFIleModel
         this.size = size;
         this.lastEditDate = lastEditDate;
         this.fileType = fileType;
+    }
+
+    public DirectoryFIleModel(string fileName)
+    {
+        this.fileName = fileName;
     }
 
     public override string ToString()

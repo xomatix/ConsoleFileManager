@@ -10,20 +10,20 @@ namespace ConsoleFileManager
         {
             Console.Clear();
 
-            List<string> items2 = new List<string>
-            {
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 5"
-            };
+            string basePath = "";
+            if (args.Length == 0)
+                basePath = Directory.GetCurrentDirectory();
+            else
+                basePath = args[0];
 
-            string basePath = @"/home/thinkpad/code/testEnv";
             DirectoryFIleModel directoryFIleModel = null;
 
             while (true)
             {
+                if (directoryFIleModel != null && directoryFIleModel.fileName == "exit")
+                {
+                    return;
+                }
                 if (directoryFIleModel != null && directoryFIleModel.fileType == FileType.Directory)
                 {
                     directoryFIleModel =
@@ -44,5 +44,6 @@ namespace ConsoleFileManager
 
             //DisplayConsole.DisplaySecondBox();
         }
+
     }
 }
